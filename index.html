@@ -1,0 +1,93 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cooking Game</title>
+<style>
+    body {
+        font-family: Arial;
+        text-align: center;
+        background: #222;
+        color: white;
+    }
+
+    h1 {
+        margin-top: 20px;
+    }
+
+    #game {
+        margin-top: 30px;
+    }
+
+    .food {
+        font-size: 60px;
+        cursor: pointer;
+        margin: 20px;
+        transition: transform 0.2s;
+    }
+
+    .food:hover {
+        transform: scale(1.2);
+    }
+
+    #order {
+        font-size: 30px;
+        margin: 20px;
+    }
+
+    #score, #health {
+        font-size: 20px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>🍳 Cooking Game</h1>
+
+<div id="score">Score: 0</div>
+<div id="health">Health: 3</div>
+
+<div id="order">Order: 🍔</div>
+
+<div id="game">
+    <span class="food" onclick="serve('burger')">🍔</span>
+    <span class="food" onclick="serve('pizza')">🍕</span>
+</div>
+
+<script>
+let foods = ["burger", "pizza"];
+let currentOrder = "";
+let score = 0;
+let health = 3;
+
+// Generate new order
+function newOrder() {
+    currentOrder = foods[Math.floor(Math.random() * foods.length)];
+    document.getElementById("order").innerText =
+        "Order: " + (currentOrder === "burger" ? "🍔" : "🍕");
+}
+
+function serve(food) {
+    if (food === currentOrder) {
+        score++;
+        document.getElementById("score").innerText = "Score: " + score;
+    } else {
+        health--;
+        document.getElementById("health").innerText = "Health: " + health;
+    }
+
+    if (health === 0) {
+        alert("💀 Game Over! Final Score: " + score);
+        location.reload();
+    }
+
+    newOrder();
+}
+
+// Start game
+newOrder();
+</script>
+
+</body>
+</html>
